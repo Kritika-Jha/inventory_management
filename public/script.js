@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchSuppliers();
     fetchProductInventory();
     fetchSupplierProductData();
+    fetchAndPopulateSuppliers();
 
     // Product Form Submission Handler
     const addProductForm = document.getElementById('add-product-form');
@@ -58,15 +59,15 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/get-products')
             .then((response) => response.json())
             .then((data) => {
-                data.sort((a, b) => a.id - b.id);
+                data.sort((a, b) => a.id - b.id); // Optional: Sorting logic
                 const inventoryTableBody = document.querySelector('#inventory-table tbody');
-                inventoryTableBody.innerHTML = '';
-
+                inventoryTableBody.innerHTML = ''; // Clear existing rows
+    
                 if (data.length === 0) {
                     inventoryTableBody.innerHTML = '<tr><td colspan="8">No products available.</td></tr>';
                     return;
                 }
-
+    
                 data.forEach((product) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -86,7 +87,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error fetching products:', error);
             });
     }
+    
+    // Add new category
+    const addCategoryForm = document.getElementById('add-category-form');
+    addCategoryForm.addEventListener('submit', function (event) {
+        event.preventDefault();
 
+        const categoryName = document.getElementById('category-name').value;
+
+        if (!categoryName.trim()) {
+            alert('Please enter a category name.');
+            return;
+        }
+
+        fetch('/add-category', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: categoryName }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    alert('Category added successfully!');
+                    fetchCategories(); // Refresh category list after adding
+                    addCategoryForm.reset(); // Clear form
+                } else {
+                    alert('Failed to add category: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error adding category:', error);
+                alert('Error adding category. Please try again later.');
+            });
+    });
     // Fetch and display categories
     function fetchCategories() {
         fetch('/get-categories')
@@ -274,34 +309,25 @@ function fetchSuppliers() {
     };
 
     function fetchProductInventory() {
-        fetch('http://localhost:3000/api/product-inventory')
-            .then(response => response.json())  // Parsing the JSON response
+        fetch('http://localhost:3000/api/product-inventory-2')
+            .then(response => response.json())  // Parse the response as JSON
             .then(data => {
-                console.log('Fetched data:', data);  // Log the raw response data to inspect its structure
-                
-                // Check if the 'suppliers' array exists in the response and is indeed an array
+                console.log('Fetched data:', data);  // Log the fetched data to check if the new product is included
                 if (data.suppliers && Array.isArray(data.suppliers)) {
                     displayProductInventory(data.suppliers);  // Pass the suppliers array to the display function
                 } else {
                     console.error('Invalid data format received from server');
                 }
             })
-            .catch(error => console.error('Error fetching data:', error));  // Log any error if the fetch fails
+            .catch(error => console.error('Error fetching data:', error));  // Log any fetch errors
     }
     
     
-    
-    
-    
-    
     function displayProductInventory(suppliers) {
-        console.log('Displaying inventory:', suppliers);  // Ensure data is here
         const tableBody = document.querySelector('#inventory-table-2 tbody');
-        console.log('Clearing table body');  // Debug if the table body is cleared prematurely
-        tableBody.innerHTML = '';  // Clear the table
-    
+        tableBody.innerHTML = '';  // Clear the table body before adding new rows
+        
         suppliers.forEach(supplier => {
-            console.log('Adding row for:', supplier);  // Debug individual row addition
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${supplier.product_id}</td>
@@ -313,6 +339,7 @@ function fetchSuppliers() {
             tableBody.appendChild(row);
         });
     }
+    
     
     
     function fetchSupplierProductData() {
@@ -391,6 +418,86 @@ function fetchStockData() {
       });
   }
   
+  // Event listener for when the supplier is selected
+const supplierDropdown = document.querySelector('#supplier-dropdown');
+supplierDropdown.addEventListener('change', event => {
+    const supplierId = event.target.value;
+
+    // Fetch and display products for the selected supplier
+    if (supplierId) {
+        fetchAndDisplayProductsBySupplier(supplierId);
+    } else {
+        // Clear the table if no supplier is selected
+        const tableBody = document.querySelector('#supplier-products-table tbody');
+        tableBody.innerHTML = '<tr><td colspan="4">Please select a supplier to view products.</td></tr>';
+    }
+});
+
+// Function to fetch and populate the supplier dropdown
+function fetchAndPopulateSuppliers() {
+    fetch('http://localhost:3000/api/suppliers')
+        .then(response => {
+            if (!response.ok) {
+                // Handle HTTP errors
+                throw new Error(`Server Error: ${response.status} - ${response.statusText}`);
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(data => {
+            console.log('Fetched suppliers:', data); // Debug fetched data
+            const supplierDropdown = document.querySelector('#supplier-dropdown');
+            supplierDropdown.innerHTML = '<option value="">Select Supplier</option>'; // Reset dropdown
+
+            // Populate the dropdown with suppliers
+            data.suppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.id; // Assuming the supplier's ID is stored in `id`
+                option.textContent = supplier.name; // Assuming the supplier's name is stored in `name`
+                supplierDropdown.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching suppliers:', error); // Debug error
+            alert('Failed to load suppliers. Please try again later.');
+        });
+}
+
+// Function to fetch and display all products for a specific supplier
+function fetchAndDisplayProductsBySupplier(supplierId) {
+    fetch(`http://localhost:3000/api/products-by-supplier/${supplierId}`)
+        .then(response => {
+            if (!response.ok) {
+                // Handle HTTP errors
+                throw new Error(`Server Error: ${response.status} - ${response.statusText}`);
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(data => {
+            const tableBody = document.querySelector('#supplier-products-table tbody');
+            tableBody.innerHTML = ''; // Clear previous rows
+
+            if (data.products && data.products.length > 0) {
+                // Loop through the products and add each to the table
+                data.products.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                        <td>${product.stock_level}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="4">No products found for this supplier.</td></tr>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching products:', error); // Debug error
+            alert('Failed to fetch products for this supplier.');
+        });
+}
+
   // Call the fetchStockData function when the page loads
   window.onload = fetchStockData;
   

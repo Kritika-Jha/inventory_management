@@ -6,163 +6,251 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles.css" rel="stylesheet">
     <title>Inventory Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
 </head>
 
 <body>
-    <h1>Inventory Management System</h1>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1><i class="fa-regular fa-hospital"></i> Inventory Management System</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="#product">Products</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#suppliers">Suppliers</a></li>
+                    <li><a href="#reports">Reports</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Form to add new product -->
-    <form id="add-product-form">
-        <label for="product-name">Product Name:</label>
-        <input type="text" id="product-name" required><br>
+    <main>
+        <!-- <aside id="quick-links">
+            <div class="sidebar-header">
+                <h2><u><b>QUICK LINKS</b></u></h2>
+                <div id="resizable-handle"></div>
+            </div>
+            <ul class="quick-links-list">
+                <li><a href="#"><i class="fa-solid fa-box"></i> View All Products</a></li>
+                <li><a href="#"><i class="fa-solid fa-plus-circle"></i> Add New Product</a></li>
+                <li><a href="#"><i class="fa-solid fa-tags"></i> Manage Categories</a></li>
+                <li><a href="#"><i class="fa-solid fa-truck"></i> Manage Suppliers</a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-bar"></i> Inventory Reports</a></li>
+                <li><a href="#"><i class="fa-solid fa-users"></i> User Management</a></li>
+            </ul>
+        </aside> -->
+        
+        <!-- Form to add new product -->
+        
+            <!-- Product Form Section -->
+            <section class="form-section" id="product">
+                <h2>Add New Product</h2>
+                <form id="add-product-form">
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" required><br>
+        
+                    <label for="product-category">Category:</label>
+                    <select id="product-category" required>
+                        <!-- Options will be dynamically populated by JS -->
+                    </select><br>
+        
+                    <label for="product-supplier">Supplier:</label>
+                    <select id="product-supplier" required>
+                        <!-- Options will be dynamically populated by JS -->
+                    </select><br>
+        
+                    <label for="product-stock">Stock Level:</label>
+                    <input type="number" id="product-stock" required><br>
+        
+                    <label for="stock_threshold">Stock Threshold:</label>
+                    <input type="number" id="stock_threshold" required><br>
+        
+                    <label for="product-price">Price:</label>
+                    <input type="number" id="product-price" required><br>
+        
+                    <label for="product-expiry">Expiry Date:</label>
+                    <input type="date" id="product-expiry" required><br>
+        
+                    <button type="submit" id="submit-button" class="btn submit-btn">Add Product</button>
+                    <button type="reset" id="reset-button" class="btn reset-btn">Reset</button>
+                </form>
+            </section>
+        
+            <!-- Product List Section -->
+            <section class="view-section">
+                <h2>Product List</h2>
+                <table id="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Supplier</th>
+                            <th>Stock Level</th>
+                            <th>Price</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        
+            <!-- Supplier Form Section -->
+            <section class="form-section" id="suppliers">
+                <h3>Add Supplier</h3>
+                <form id="add-supplier-form">
+                    <label for="supplier-name">Name:</label>
+                    <input type="text" id="supplier-name" required /><br>
+        
+                    <label for="supplier-address">Address:</label>
+                    <input type="text" id="supplier-address" required /><br>
+        
+                    <label for="supplier-phone">Phone Number:</label>
+                    <input type="text" id="supplier-phone" required /><br>
+        
+                    <button type="submit" class="btn submit-btn">Add Supplier</button>
+                </form>
+        
+                <h3>Suppliers</h3>
+                <table id="suppliers-table">
+                    <thead>
+                        <tr>
+                            <th>Supplier ID</th>
+                            <th>Supplier Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        
+            <!-- Category Form Section -->
+            <section class="form-section" id="categories">
+                <h3>Add Category</h3>
+                <form id="add-category-form">
+                    <label for="category-name">Category Name:</label>
+                    <input type="text" id="category-name" name="category-name" required><br>
+                    <button type="submit" class="btn submit-btn">Add Category</button>
+                </form>
+        
+                <h3>Categories</h3>
+                <table id="category-table">
+                    <thead>
+                        <tr>
+                            <th>Category ID</th>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        
+            <!-- Product Inventory View Section -->
+            <section class="view-section" id="reports">
+                <h1>Product Inventory View</h1>
+                <table id="inventory-table-2">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Stock Level</th>
+                            <th>Supplier Name</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        
+            <!-- Supplier Product View Section -->
+            <section class="view-section">
+                <h1>Supplier Product View</h1>
+                <table id="supplier-product-table">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        
+            <!-- Product Stock Status Section -->
+            <section class="view-section">
+                <h2>Product Stock Status</h2>
+                <table id="stockTable">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Stock Level</th>
+                            <th>Stock Threshold</th>
+                            <th>Stock Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
 
-        <label for="product-category">Category:</label>
-        <select id="product-category" required></select><br>
+            <section id="supplier-products-viewer">
+                <h2>View Products by Supplier</h2>
+                
+                <!-- Dropdown to Select Supplier -->
+                <label for="supplier-dropdown">Select a Supplier:</label>
+                <select id="supplier-dropdown">
+                    <option value="">-- Select a Supplier --</option>
+                    <!-- Options will be dynamically added -->
+                </select>
+            
+                <!-- Table to Display Products -->
+                <table id="supplier-products-table">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Stock Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically populated -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        
 
-        <!-- Supplier Dropdown -->
-        <label for="product-supplier">Supplier</label>
-        <select id="product-supplier">
-            <option value="">Select a Supplier</option>
-            <!-- Supplier options will be populated here -->
-        </select><br>
-
-        <label for="product-stock">Stock Level:</label>
-        <input type="number" id="product-stock" required><br>
-
-        <label for="stock_threshold">Stock Threshold:</label>
-    <input type="number" id="stock_threshold" name="stock_threshold" required><br>
-    
-        <label for="product-price">Price:</label>
-        <input type="number" id="product-price" required><br>
-
-        <label for="product-expiry">Expiry Date:</label>
-        <input type="date" id="product-expiry" required><br>
-
-        <button type="submit">Add Product</button>
-    </form>
-
-    <h2>Product List</h2>
-    <table id="inventory-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Supplier</th>
-                <th>Stock Level</th>
-                <th>Price</th>
-                <th>Expiry Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <div>
-        <!-- Supplier Form -->
-        <form id="add-supplier-form">
-            <h3>Add Supplier</h3>
-            <label for="supplier-name">Name:</label>
-            <input type="text" id="supplier-name" required /><br>
-
-            <label for="supplier-address">Address:</label>
-            <input type="text" id="supplier-address" required /><br>
-
-            <label for="supplier-phone">Phone Number:</label>
-            <input type="text" id="supplier-phone" required /><br>
-
-            <button type="submit">Add Supplier</button>
-        </form>
-
-        <!-- Suppliers Table -->
-        <h3>Suppliers</h3>
-        <table id="suppliers-table">
-            <thead>
-                <tr>
-                    <th>Supplier ID</th>
-                    <th>Supplier Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-
-    <!-- Add Category Form -->
-    <div>
-        <h3>Add Category</h3>
-        <form id="add-category-form">
-            <label for="category-name">Category Name:</label>
-            <input type="text" id="category-name" name="category-name" required><br>
-            <button type="submit">Add Category</button>
-        </form>
-
-        <!-- Categories Table -->
-        <h3>Categories</h3>
-        <table id="category-table">
-            <thead>
-                <tr>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <h1>Product Inventory View</h1>
-    
-    <!-- Product Inventory Table -->
-    <table id="inventory-table-2">
-        <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Stock Level</th>
-                <th>Supplier Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Product data will be populated here -->
-        </tbody>
-    </table>
-
-    <h1>Supplier Product View</h1>
-    
-<!-- Supplier Product Table -->
-<table id="supplier-product-table">
-    <thead>
-        <tr>
-            <th>Supplier Name</th>
-            <th>Product Name</th>
-            <th>Product Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Supplier product data will be populated here -->
-    </tbody>
-</table>
-
-<h2>Product Stock Status</h2>
-  <table id="stockTable">
-    <thead>
-      <tr>
-        <th>Product Name</th>
-        <th>Stock Level</th>
-        <th>Stock Threshold</th>
-        <th>Stock Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data will be populated here via JavaScript -->
-    </tbody>
-  </table>
-
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column about-us">
+                <h3>About Us</h3>
+                <p>We are dedicated to improving hospital inventory management through innovative solutions and technologies. Our team strives to provide the best tools for efficient and effective management.</p>
+            </div>
+            <div class="footer-column contact-us">
+                <h3>Contact Us</h3>
+                <p><i class="fa-solid fa-phone"></i> +091-8769045212</p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@hospitalinventory.com">info@hospitalinventory.com</a></p>
+                <p><i class="fa-solid fa-location-dot"></i> Kashmere Gate, Delhi-110007</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Hospital Inventory Management System | Designed by Kritika & Khushi❤️</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 
 </html>
+
+
+

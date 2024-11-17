@@ -10,12 +10,13 @@
     <div class="login-container">
         <h2>Admin Login</h2>
         <form id="loginForm">
-            <input type="text" id="adminId" placeholder="Admin ID" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="adminId" placeholder="Admin ID" required autocomplete="username">
+            <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
             <input type="submit" value="Login">
         </form>
+        
         <div id="alert" class="alert" style="display: none;"></div>
     </div>
     <script src="login.js"></script>
 </body>
-</html> 
+</html>

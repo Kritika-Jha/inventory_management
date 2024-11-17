@@ -166,21 +166,21 @@ app.delete('/delete-supplier/:id', (req, res) => {
 
 
 // API endpoint to fetch product inventory
-app.get('/api/product-inventory', (req, res) => {
+app.get('/api/product-inventory-2', (req, res) => {
     db.query('SELECT * FROM product_inventory_view', (err, results) => {
         if (err) {
             res.status(500).send('Error retrieving data from database');
             return;
         }
-        console.log('SQL Results:', results);
-        // Send the data back in a proper format
+        console.log('SQL Results:', results);  // Log the SQL results to verify if the new product is included
         res.json({
             success: true,
-            suppliers: results // The query result is assumed to be an array of product data
+            suppliers: results // The data being returned to the frontend
         });
     });
-    
 });
+
+
 
 app.get('/api/supplier-product', (req, res) => {
     db.query('SELECT * FROM supplier_product_view', (err, results) => {
@@ -213,30 +213,73 @@ app.get('/api/product-stock-status', (req, res) => {
 
 // Admin login route
 app.post('/admin-login', (req, res) => {
-  const { adminId, password } = req.body;
+    const { adminId, password } = req.body;
 
-  const query = 'SELECT * FROM admins WHERE username = ?';
-  db.query(query, [adminId], (err, results) => {
-      if (err) {
-          console.error('Database query error:', err);
-          res.status(500).json({ message: 'An error occurred' });
-          return;
-      }
+    console.log('Login request received:', req.body); // Log incoming data
 
-      if (results.length === 0) {
-          res.status(401).json({ message: 'Invalid username or password' });
-      } else {
-          const admin = results[0];
+    // Query to fetch user details by username
+    const query = 'SELECT * FROM admins WHERE username = ?';
+    db.query(query, [adminId], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ message: 'An error occurred while processing your request.' });
+        }
 
-          // Simple plain text password comparison
-          if (password === admin.password) {
-              res.status(200).json({ message: 'Login successful' });
-          } else {
-              res.status(401).json({ message: 'Invalid username or password' });
-          }
-      }
-  });
+        console.log('Query results:', results); // Log query results
+
+        if (results.length === 0) {
+            // No matching user found
+            console.log('No matching user found');
+            return res.status(401).json({ message: 'Invalid username or password' });
+        } else {
+            const admin = results[0];
+            console.log(`Comparing ${password} with ${admin.password}`); // Debug password comparison
+
+            if (password === admin.password) {
+                // Successful login
+                console.log('Login successful');
+                return res.status(200).json({ message: 'Login successful' });
+            } else {
+                // Password mismatch
+                console.log('Invalid password');
+                return res.status(401).json({ message: 'Invalid username or password' });
+            }
+        }
+    });
 });
+
+// Backend route to fetch suppliers
+app.get('/api/suppliers', (req, res) => {
+    db.query('SELECT id, name FROM suppliers', (err, results) => {
+        if (err) {
+            console.error('Database Error:', err); // Log detailed error for debugging
+            return res.status(500).json({ error: 'Error retrieving suppliers from database' });
+        }
+        // Send suppliers data as JSON
+        res.json({ suppliers: results });
+    });
+});
+
+
+// Example Express route for fetching products by supplier
+app.get('/api/products-by-supplier/:supplierId', (req, res) => {
+    const supplierId = req.params.supplierId;
+    
+    // Fetch products from the database based on supplierId
+    db.query('SELECT * FROM products WHERE supplier_id = ?', [supplierId], (err, results) => {
+        if (err) {
+            console.error('Error fetching products:', err);
+            return res.status(500).json({ error: 'Failed to fetch products' });
+        }
+
+        // Send back the products data
+        res.json({
+            products: results
+        });
+    });
+});
+
+
 
 // Start the server
 app.listen(3000, () => {

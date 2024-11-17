@@ -13,87 +13,203 @@ body {
   line-height: 1.6;
   padding: 20px;
   font-size: 16px;
+  padding-top: 80px;
 }
 
 /* Page Title */
 h1 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
-  color: #4CAF50;
+  color: #100608;
 }
 
-/* Form Styling */
-form {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Header Styling */
+header {
+  background: #220c15; /* Soft Pink */
+  color: #ffffff;
+  padding: 10px 0;
+  box-shadow: 0 11px 12px rgba(0, 0, 0, 0.3);
+  position: fixed; /* Fix header to the top */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  z-index: 10; /* Ensure the header stays on top */
 }
 
-form h3 {
-  margin-bottom: 15px;
-  color: #4CAF50;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+header h1 {
+  font-size: 24px; /* Smaller header font size */
+  text-align: center;
 }
 
-label {
-  font-weight: bold;
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-evenly; /* Distribute space evenly */
+  align-items: center;
+  padding: 10px 40px;
+  background: #220c15; /* Soft Pink */
+  position: relative;
+}
+
+.navbar .logo h1 {
+  margin: 0;
+  font-size: 34px;
+  color: #bbbdc9; /* Light Turquoise */
+  font-weight: 700;
+}
+
+.navbar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Make links appear in a row */
+  gap: 20px; /* Space between links */
+}
+
+.navbar nav ul li {
+  position: relative;
+}
+
+.navbar nav ul li a {
+  color: #dfd8d8; /* Very Light Pink */
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar nav ul li a::before {
+  content: '';
   display: block;
-  margin-bottom: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(255,255,255,0) 70%);
+  transition: transform 0.3s ease;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
+.navbar nav ul li a:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.navbar nav ul li a:hover {
+  color: #ffffff; /* White */
+  background: rgba(194, 0, 0, 0.2); /* Light semi-transparent overlay */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  border-radius: 8px;
+}
+
+.navbar nav ul li a.active {
+  color: #ffffff; /* White */
+  background-color: #e0e0e0; /* Light Gray */
+}
+
+.navbar nav ul li a.active::before {
+  display: none; /* Remove hover effect on active link */
+}
+
+/* Main Content Styling */
+main {
+  padding: 20px;
+  margin-top: 20px; /* Ensure the content doesn't overlap with header */
+}
+/* Content Section */
+.container {
+  padding-top: 100px; /* Adjust for fixed header */
+  background: url('bgi.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Aside (Sidebar) Styling */
+aside {
+  width: 260px;
+  background: #caa6a6;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-right: 40px;
+  border-radius: 12px;
+  border: 2px solid #a77d7d;
+  box-sizing: border-box;
+}
+
+/* Form Section Styling */
+.form-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.form-section h2, .form-section h3 {
+  color: #220c15;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.form-section label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.form-section input, .form-section select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-button {
-  display: inline-block;
-  background-color: #4CAF50;
+.form-section input[type="number"], .form-section select {
+  background-color: #f9f9f9;
+}
+
+.form-section button {
+  background-color: #320f13;
   color: #fff;
-  border: none;
-  border-radius: 4px;
   padding: 10px 20px;
   font-size: 16px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-button:hover {
-  background-color: #45a049;
+.form-section button:hover {
+  background-color: #220c15;
 }
 
-/* Table Styling */
+/* Table Styling for Product and Supplier Lists */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-table th, 
-table td {
+table th, table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 table th {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #320f13;
+  color: #fff;
   text-transform: uppercase;
 }
 
@@ -106,7 +222,7 @@ table tbody tr:hover {
 }
 
 table td button {
-  background-color: #e74c3c;
+  background-color: #2c100d;
   padding: 8px 12px;
   font-size: 14px;
   color: #fff;
@@ -119,15 +235,127 @@ table td button {
 }
 
 table td button:hover {
-  background-color: #c0392b;
+  background-color: #120c0b;
 }
 
-/* Sections */
-h2, h3 {
+/* Dropdown for Select Elements */
+select {
+  appearance: none;
+  background-color: #f9f9f9;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"%3E%3Cpath fill="currentColor" d="M5 7L10 12L15 7H5Z"/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+  font-size: 16px;
+}
+
+select:focus {
+  border-color: #320f13;
+}
+
+/* Responsive Design for Forms */
+@media (max-width: 768px) {
+  .form-section {
+    padding: 15px;
+  }
+
+  .form-section input, .form-section select {
+    width: 100%;
+  }
+
+  .form-section button {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}
+
+/* Footer Styling */
+footer {
+  background-color: #441919;
+  color: #d9e1e3;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  font-family: Arial, sans-serif;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-column {
+  width: 40%;
   margin-bottom: 10px;
-  color: #333;
 }
 
-div {
-  margin-bottom: 20px;
+.footer-column h3 {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: #ced0c9;
+  font-weight: bold;
+}
+
+.footer-column p {
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.footer-column a {
+  color: #ecf0f1;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 15px;
+  font-size: em;
+  background-color: #201316;
+  padding: 10px 0;
+}
+
+/* Contact us link */
+.contact-us a {
+  color: #096366;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .footer-column {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav ul {
+    padding: 20px 0;
+  }
+
+  .navbar nav ul li {
+    margin: 10px 0;
+  }
 }
