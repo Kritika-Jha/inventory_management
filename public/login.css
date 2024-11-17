@@ -1,0 +1,142 @@
+/* Apply a background image */
+body {
+    background: url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Center the login container */
+  .login-container {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style the form elements */
+  form input[type="text"],
+  form input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  form input[type="submit"] {
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  /* Style the alert box */
+  .alert {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red */
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  /* Global Styles */
+  body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc; /* Light Grayish Blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    /* Login Container */
+    .login-container {
+      background: #ffffff; /* White Background */
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .login-container h2 {
+      color: #220c15; /* Soft Pink */
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .login-container input[type="text"],
+    .login-container input[type="password"],
+    .login-container input[type="submit"] {
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #5a1616; /* Dark Red */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      font-size: 16px;
+    }
+    
+    .login-container input[type="submit"] {
+      background-color: #760b0b; /* Dark Red */
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    
+    .login-container input[type="submit"]:hover {
+      background-color: #c62828; /* Lighter Dark Red */
+      transform: scale(1.05);
+    }
+    
+    /* Alert Styles */
+    .alert {
+      background-color: #ffe0e0; /* Very Light Pink */
+      color: #d8000c; /* Dark Red */
+      border: 1px solid #d8000c;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+    }
+    

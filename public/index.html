@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Inventory Management</title>
+</head>
+
+<body>
+    <h1>Inventory Management System</h1>
+
+    <!-- Form to add new product -->
+    <form id="add-product-form">
+        <label for="product-name">Product Name:</label>
+        <input type="text" id="product-name" required><br>
+
+        <label for="product-category">Category:</label>
+        <select id="product-category" required></select><br>
+
+        <!-- Supplier Dropdown -->
+        <label for="product-supplier">Supplier</label>
+        <select id="product-supplier">
+            <option value="">Select a Supplier</option>
+            <!-- Supplier options will be populated here -->
+        </select><br>
+
+        <label for="product-stock">Stock Level:</label>
+        <input type="number" id="product-stock" required><br>
+
+        <label for="stock_threshold">Stock Threshold:</label>
+    <input type="number" id="stock_threshold" name="stock_threshold" required><br>
+    
+        <label for="product-price">Price:</label>
+        <input type="number" id="product-price" required><br>
+
+        <label for="product-expiry">Expiry Date:</label>
+        <input type="date" id="product-expiry" required><br>
+
+        <button type="submit">Add Product</button>
+    </form>
+
+    <h2>Product List</h2>
+    <table id="inventory-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Supplier</th>
+                <th>Stock Level</th>
+                <th>Price</th>
+                <th>Expiry Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div>
+        <!-- Supplier Form -->
+        <form id="add-supplier-form">
+            <h3>Add Supplier</h3>
+            <label for="supplier-name">Name:</label>
+            <input type="text" id="supplier-name" required /><br>
+
+            <label for="supplier-address">Address:</label>
+            <input type="text" id="supplier-address" required /><br>
+
+            <label for="supplier-phone">Phone Number:</label>
+            <input type="text" id="supplier-phone" required /><br>
+
+            <button type="submit">Add Supplier</button>
+        </form>
+
+        <!-- Suppliers Table -->
+        <h3>Suppliers</h3>
+        <table id="suppliers-table">
+            <thead>
+                <tr>
+                    <th>Supplier ID</th>
+                    <th>Supplier Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+    <!-- Add Category Form -->
+    <div>
+        <h3>Add Category</h3>
+        <form id="add-category-form">
+            <label for="category-name">Category Name:</label>
+            <input type="text" id="category-name" name="category-name" required><br>
+            <button type="submit">Add Category</button>
+        </form>
+
+        <!-- Categories Table -->
+        <h3>Categories</h3>
+        <table id="category-table">
+            <thead>
+                <tr>
+                    <th>Category ID</th>
+                    <th>Category Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <h1>Product Inventory View</h1>
+    
+    <!-- Product Inventory Table -->
+    <table id="inventory-table-2">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Stock Level</th>
+                <th>Supplier Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product data will be populated here -->
+        </tbody>
+    </table>
+
+    <h1>Supplier Product View</h1>
+    
+<!-- Supplier Product Table -->
+<table id="supplier-product-table">
+    <thead>
+        <tr>
+            <th>Supplier Name</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Supplier product data will be populated here -->
+    </tbody>
+</table>
+
+<h2>Product Stock Status</h2>
+  <table id="stockTable">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Stock Level</th>
+        <th>Stock Threshold</th>
+        <th>Stock Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be populated here via JavaScript -->
+    </tbody>
+  </table>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
